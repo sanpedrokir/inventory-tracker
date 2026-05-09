@@ -74,7 +74,7 @@ export default function InventoryApp() {
 
   <ul className="list-disc pl-5 space-y-1">
     <li>Next.js</li>
-    <li>Next.js App Router</li>
+    <li>App Router</li>
     <li>TypeScript</li>
     <li>Tailwind CSS UI</li>
     <li>Prisma ORM</li>
@@ -96,13 +96,17 @@ export default function InventoryApp() {
             required
           />
 
-          <input
-            className="rounded border border-gray-300 bg-white p-2 text-gray-900"
-            placeholder="Category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            required
-          />
+  <select
+  className="rounded border border-gray-300 bg-white p-2 text-gray-900"
+  value={category}
+  onChange={(e) => setCategory(e.target.value)}
+  required
+>
+  <option value="">Select Category</option>
+  <option value="Hardware">Hardware</option>
+  <option value="Software">Software</option>
+  <option value="Others">Others</option>
+</select>
 
           <input
             className="rounded border border-gray-300 bg-white p-2 text-gray-900"
