@@ -67,6 +67,7 @@ export default function InventoryApp() {
     <main className="min-h-screen bg-gray-50 p-8 text-gray-900">
       <div className="mx-auto max-w-5xl">
         <h1 className="mb-6 text-3xl font-bold">Inventory Tracker</h1>
+        <h2 className="mb-6 text-3xl font-bold">This was created using Next.js App Router app, Typescript project, Tailwind UI, Prisma ORM, PostgreSQL database on Supabase, API routes, CRUD inventory functionality and Live deployment on Vercel. (Full stack app)</h>
 
         <form
           onSubmit={addItem}
