@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET() {
+  const { prisma } = await import("@/lib/prisma");
+
   const items = await prisma.inventoryItem.findMany({
     orderBy: { createdAt: "desc" },
   });
@@ -13,6 +14,8 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const { prisma } = await import("@/lib/prisma");
+
   const body = await request.json();
 
   const item = await prisma.inventoryItem.create({
