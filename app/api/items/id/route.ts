@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-export async function PATCH(
-  request: Request,
-  context: { params: { id: string } }
-) {
+type RouteContext = {
+  params: Promise<{ id: string }>;
+};
+
+export async function PATCH(request: Request, context: RouteContext) {
+  const { id } = await context.params;
   const body = await request.json();
-  const id = context.params.id;
 
   const item = await prisma.inventoryItem.update({
     where: { id: Number(id) },
