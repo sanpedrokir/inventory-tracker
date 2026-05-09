@@ -14,8 +14,12 @@ export async function GET() {
     return NextResponse.json(items);
   } catch (error) {
     console.error("GET /api/items error:", error);
+
     return NextResponse.json(
-      { error: "Failed to fetch items" },
+      {
+        error: "Failed to fetch items",
+        detail: error instanceof Error ? error.message : String(error),
+      },
       { status: 500 }
     );
   }
@@ -26,7 +30,12 @@ export async function POST(request: Request) {
     const { prisma } = await import("@/lib/prisma");
     const body = await request.json();
 
-    if (!body.name || !body.category || body.quantity === undefined || !body.location) {
+    if (
+      !body.name ||
+      !body.category ||
+      body.quantity === undefined ||
+      !body.location
+    ) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 }
@@ -45,8 +54,12 @@ export async function POST(request: Request) {
     return NextResponse.json(item);
   } catch (error) {
     console.error("POST /api/items error:", error);
+
     return NextResponse.json(
-      { error: "Failed to create item" },
+      {
+        error: "Failed to create item",
+        detail: error instanceof Error ? error.message : String(error),
+      },
       { status: 500 }
     );
   }
