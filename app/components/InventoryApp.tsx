@@ -67,7 +67,6 @@ export default function InventoryApp() {
     <main className="min-h-screen bg-gray-50 p-8 text-gray-900">
       <div className="mx-auto max-w-5xl">
         <h1 className="mb-6 text-3xl font-bold">Inventory Tracker</h1>
-       
 
         <form
           onSubmit={addItem}
@@ -115,7 +114,6 @@ export default function InventoryApp() {
         <div className="overflow-hidden rounded-lg bg-white shadow">
           <table className="w-full border-collapse text-left">
             <thead className="bg-gray-100">
-             
               <tr>
                 <th className="p-3">Name</th>
                 <th className="p-3">Category</th>
@@ -172,3 +170,4 @@ export default function InventoryApp() {
     </main>
   );
 }
+
