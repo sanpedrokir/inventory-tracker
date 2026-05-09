@@ -4,63 +4,28 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  try {
-    const { prisma } = await import("@/lib/prisma");
+  const { prisma } = await import("@/lib/prisma");
 
-    const items = await prisma.inventoryItem.findMany({
-      orderBy: { createdAt: "desc" },
-    });
+  const items = await prisma.inventoryItem.findMany({
+    orderBy: { createdAt: "desc" },
+  });
 
-    return NextResponse.json(items);
-  } catch (error) {
-    console.error("GET /api/items error:", error);
-
-    return NextResponse.json(
-      {
-        error: "Failed to fetch items",
-        detail: error instanceof Error ? error.message : String(error),
-      },
-      { status: 500 }
-    );
-  }
+  return NextResponse.json(items);
 }
 
 export async function POST(request: Request) {
-  try {
-    const { prisma } = await import("@/lib/prisma");
-    const body = await request.json();
+  const { prisma } = await import("@/lib/prisma");
 
-    if (
-      !body.name ||
-      !body.category ||
-      body.quantity === undefined ||
-      !body.location
-    ) {
-      return NextResponse.json(
-        { error: "Missing required fields" },
-        { status: 400 }
-      );
-    }
+  const body = await request.json();
 
-    const item = await prisma.inventoryItem.create({
-      data: {
-        name: String(body.name),
-        category: String(body.category),
-        quantity: Number(body.quantity),
-        location: String(body.location),
-      },
-    });
+  const item = await prisma.inventoryItem.create({
+    data: {
+      name: body.name,
+      category: body.category,
+      quantity: Number(body.quantity),
+      location: body.location,
+    },
+  });
 
-    return NextResponse.json(item);
-  } catch (error) {
-    console.error("POST /api/items error:", error);
-
-    return NextResponse.json(
-      {
-        error: "Failed to create item",
-        detail: error instanceof Error ? error.message : String(error),
-      },
-      { status: 500 }
-    );
-  }
+  return NextResponse.json(item);
 }
