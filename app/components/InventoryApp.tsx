@@ -115,10 +115,7 @@ export default function InventoryApp() {
         <div className="overflow-hidden rounded-lg bg-white shadow">
           <table className="w-full border-collapse text-left">
             <thead className="bg-gray-100">
-              <tr>
-                 AppKir says: This is a full stack application created using Next.js App Router app, Typescript project, Tailwind UI, Prisma ORM, PostgreSQL database on Supabase, API routes, CRUD inventory functionality and Live deployment on Vercel. 
-        
-              </tr>
+             
               <tr>
                 <th className="p-3">Name</th>
                 <th className="p-3">Category</th>
