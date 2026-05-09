@@ -69,7 +69,7 @@ export default function InventoryApp() {
         <h1 className="mb-6 text-3xl font-bold">Inventory Tracker</h1>
 <div className="mb-6 rounded-lg bg-blue-50 p-4 text-sm text-gray-700 shadow">
   <p className="font-semibold mb-2">
-    Appkir says that this is a full-stack application built with:
+    Kirsten Yong says that this is a full-stack application built with:
   </p>
 
   <ul className="list-disc pl-5 space-y-1">
