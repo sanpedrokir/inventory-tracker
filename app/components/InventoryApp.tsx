@@ -67,7 +67,23 @@ export default function InventoryApp() {
     <main className="min-h-screen bg-gray-50 p-8 text-gray-900">
       <div className="mx-auto max-w-5xl">
         <h1 className="mb-6 text-3xl font-bold">Inventory Tracker</h1>
+<div className="mb-6 rounded-lg bg-blue-50 p-4 text-sm text-gray-700 shadow">
+  <p className="font-semibold mb-2">
+    Appkir says that this is a full-stack application built with:
+  </p>
 
+  <ul className="list-disc pl-5 space-y-1">
+    <li>Next.js</li>
+    <li>Next.js App Router</li>
+    <li>TypeScript</li>
+    <li>Tailwind CSS UI</li>
+    <li>Prisma ORM</li>
+    <li>PostgreSQL database on Supabase</li>
+    <li>API Routes</li>
+    <li>CRUD inventory functionality</li>
+    <li>Live deployment on Vercel</li>
+  </ul>
+</div>
         <form
           onSubmit={addItem}
           className="mb-8 grid gap-4 rounded-lg bg-white p-6 shadow md:grid-cols-5"
