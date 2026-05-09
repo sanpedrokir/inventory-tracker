@@ -12,14 +12,13 @@ type InventoryItem = {
 
 export default function InventoryApp() {
   const [items, setItems] = useState<InventoryItem[]>([]);
-
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [quantity, setQuantity] = useState("");
   const [location, setLocation] = useState("");
 
   async function loadItems() {
-    const res = await fetch("/api/items");
+    const res = await fetch("/api/items", { cache: "no-store" });
     const data = await res.json();
     setItems(data);
   }
@@ -39,7 +38,7 @@ export default function InventoryApp() {
       body: JSON.stringify({
         name,
         category,
-        quantity,
+        quantity: Number(quantity),
         location,
       }),
     });
@@ -49,7 +48,7 @@ export default function InventoryApp() {
     setQuantity("");
     setLocation("");
 
-    loadItems();
+    await loadItems();
   }
 
   async function updateQuantity(id: number, quantity: number) {
@@ -61,7 +60,7 @@ export default function InventoryApp() {
       body: JSON.stringify({ quantity }),
     });
 
-    loadItems();
+    await loadItems();
   }
 
   return (
@@ -107,10 +106,7 @@ export default function InventoryApp() {
             required
           />
 
-          <button
-            type="submit"
-            className="rounded bg-black px-4 py-2 text-white"
-          >
+          <button type="submit" className="rounded bg-black px-4 py-2 text-white">
             Add Item
           </button>
         </form>
@@ -135,7 +131,6 @@ export default function InventoryApp() {
                   <td className="p-3">{item.category}</td>
                   <td className="p-3">{item.quantity}</td>
                   <td className="p-3">{item.location}</td>
-
                   <td className="p-3">
                     {item.quantity < 5 ? (
                       <span className="rounded bg-red-100 px-2 py-1 text-sm text-red-700">
@@ -147,7 +142,6 @@ export default function InventoryApp() {
                       </span>
                     )}
                   </td>
-
                   <td className="p-3">
                     <input
                       className="w-24 rounded border border-gray-300 bg-white p-2 text-gray-900"
