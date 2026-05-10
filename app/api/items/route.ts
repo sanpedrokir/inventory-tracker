@@ -23,7 +23,7 @@ export async function POST(request: Request) {
       name: String(body.name),
       category: String(body.category),
       quantity: Number(body.quantity),
-      location: String(body.location),
+      location: String(body.location || ""),
    
     },
   });
