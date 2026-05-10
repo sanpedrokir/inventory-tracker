@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 export async function GET() {
   const { prisma } = await import("@/lib/prisma");
 
-  const items = await prisma.inventoryItem.findMany({
+  const items = await prisma.InventoryItem.findMany({
     orderBy: { createdAt: "desc" },
   });
 
@@ -23,7 +23,8 @@ export async function POST(request: Request) {
       name: String(body.name),
       category: String(body.category),
       quantity: Number(body.quantity),
-      location: body.location,
+      location: String(body.location),
+   
     },
   });
 
