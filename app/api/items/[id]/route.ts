@@ -3,15 +3,14 @@ import { NextResponse } from "next/server";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-export async function PATCH(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
+export async function PATCH(request: Request, context: any) {
   try {
     const { prisma } = await import("@/lib/prisma");
 
-    const body = await request.json();
+    const params = await context.params;
     const id = Number(params.id);
+
+    const body = await request.json();
     const quantity = Number(body.quantity);
 
     if (!id || Number.isNaN(quantity)) {
