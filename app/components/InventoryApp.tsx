@@ -81,7 +81,7 @@ export default function InventoryApp() {
     <li>PostgreSQL database on Supabase</li>
     <li>API Routes</li>
     <li>CRUD inventory functionality</li>
-    <li>Live deployment on Vercel</li>
+    <li>\Github and Live deployment on Vercel</li>
   </ul>
 </div>
         <form
