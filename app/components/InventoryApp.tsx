@@ -178,14 +178,13 @@ export default function InventoryApp() {
 
     <button
       type="button"
-      className="rounded bg-blue-600 px-3 py-2 text-sm text-white hover:bg-blue-700"
-      onClick={() => {
+      className="rounded bg-blue-600 px-3 py-2 text-sm text-white"
+      onClick={async () => {
         const input = document.getElementById(
           `quantity-${item.id}`
         ) as HTMLInputElement;
 
-        updateQuantity(item.id, Number(input.value));
-
+        await updateQuantity(item.id, Number(input.value));
         alert("Stock quantity updated successfully.");
       }}
     >
