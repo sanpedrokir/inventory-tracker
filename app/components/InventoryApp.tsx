@@ -51,8 +51,8 @@ export default function InventoryApp() {
     await loadItems();
   }
 
-  async function updateQuantity(id: number, quantity: number) {
-  await fetch(`/api/items/${id}`, {
+async function updateQuantity(id: number, quantity: number) {
+  const res = await fetch(`/api/items/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -60,7 +60,14 @@ export default function InventoryApp() {
     body: JSON.stringify({ quantity }),
   });
 
+  if (!res.ok) {
+    const errorText = await res.text();
+    alert("Update failed: " + errorText);
+    return;
+  }
+
   await loadItems();
+  alert("Stock quantity updated successfully.");
 }
 
   return (
