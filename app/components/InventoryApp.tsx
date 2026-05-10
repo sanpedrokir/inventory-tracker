@@ -69,7 +69,7 @@ export default function InventoryApp() {
         <h1 className="mb-6 text-3xl font-bold">Inventory Tracker</h1>
 <div className="mb-6 rounded-lg bg-blue-50 p-4 text-sm text-gray-700 shadow">
   <p className="font-semibold mb-2">
-    Kirsten Yong says that this is a full-stack application built with:
+    Example of a full-stack application -abiut 20 percent vibed while 80 percent VS code built with:
   </p>
 
   <ul className="list-disc pl-5 space-y-1">
@@ -167,16 +167,32 @@ export default function InventoryApp() {
                     )}
                   </td>
                   <td className="p-3">
-                    <input
-                      className="w-24 rounded border border-gray-300 bg-white p-2 text-gray-900"
-                      type="number"
-                      min="0"
-                      defaultValue={item.quantity}
-                      onBlur={(e) =>
-                        updateQuantity(item.id, Number(e.target.value))
-                      }
-                    />
-                  </td>
+  <div className="flex items-center gap-2">
+    <input
+      className="w-24 rounded border border-gray-300 bg-white p-2 text-gray-900"
+      type="number"
+      min="0"
+      defaultValue={item.quantity}
+      id={`quantity-${item.id}`}
+    />
+
+    <button
+      type="button"
+      className="rounded bg-blue-600 px-3 py-2 text-sm text-white hover:bg-blue-700"
+      onClick={() => {
+        const input = document.getElementById(
+          `quantity-${item.id}`
+        ) as HTMLInputElement;
+
+        updateQuantity(item.id, Number(input.value));
+
+        alert("Stock quantity updated successfully.");
+      }}
+    >
+      Update
+    </button>
+  </div>
+</td>
                 </tr>
               ))}
 
