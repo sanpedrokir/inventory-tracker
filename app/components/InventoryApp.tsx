@@ -52,16 +52,16 @@ export default function InventoryApp() {
   }
 
   async function updateQuantity(id: number, quantity: number) {
-    await fetch(`/api/items/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ quantity }),
-    });
+  await fetch(`/api/items/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ quantity }),
+  });
 
-    await loadItems();
-  }
+  await loadItems();
+}
 
   return (
     <main className="min-h-screen bg-gray-50 p-8 text-gray-900">
@@ -185,7 +185,7 @@ export default function InventoryApp() {
         ) as HTMLInputElement;
 
         await updateQuantity(item.id, Number(input.value));
-        alert("Stock quantity updated successfully.");
+     
       }}
     >
       Update
