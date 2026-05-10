@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 export async function GET() {
   const { prisma } = await import("@/lib/prisma");
 
-  const items = await prisma.InventoryItem.findMany({
+  const items = await prisma.inventoryItem.findMany({
     orderBy: { createdAt: "desc" },
   });
 
