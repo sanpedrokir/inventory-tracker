@@ -131,6 +131,10 @@ export default function InventoryApp() {
           </button>
         </form>
 
+        <div className="mb-4 rounded bg-yellow-50 p-3 text-sm text-yellow-800">
+  Note: Items with quantity below 20 will be marked as Low Stock.
+</div>
+
         <div className="overflow-hidden rounded-lg bg-white shadow">
           <table className="w-full border-collapse text-left">
             <thead className="bg-gray-100">
@@ -152,7 +156,7 @@ export default function InventoryApp() {
                   <td className="p-3">{item.quantity}</td>
                   <td className="p-3">{item.location}</td>
                   <td className="p-3">
-                    {item.quantity < 5 ? (
+                    {item.quantity < 50 ? (
                       <span className="rounded bg-red-100 px-2 py-1 text-sm text-red-700">
                         Low Stock
                       </span>
