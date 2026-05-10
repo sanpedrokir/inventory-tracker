@@ -9,7 +9,7 @@ export async function PATCH(request: Request, context: any) {
   const id = context.params.id;
   const body = await request.json();
 
-  const item = await prisma.inventoryItem.update({
+  const item = await prisma.InventoryItem.update({
     where: { id: Number(id) },
     data: {
       quantity: Number(body.quantity),
