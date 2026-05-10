@@ -76,7 +76,7 @@ async function updateQuantity(id: number, quantity: number) {
         <h1 className="mb-6 text-3xl font-bold">Inventory Tracker</h1>
 <div className="mb-6 rounded-lg bg-blue-50 p-4 text-sm text-gray-700 shadow">
   <p className="font-semibold mb-2">
-    Example of a full-stack application -abiut 20 percent vibed while 80 percent VS code built with:
+    A full-stack application -about 20 percent vibed while 80 percent VS code built with:
   </p>
 
   <ul className="list-disc pl-5 space-y-1">
