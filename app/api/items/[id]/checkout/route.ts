@@ -3,6 +3,8 @@ import { NextResponse } from "next/server";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+const allowedRoles = ["Admin", "Manager", "Employee"];
+
 export async function POST(request: Request, context: any) {
   try {
     const { prisma } = await import("@/lib/prisma");
@@ -21,13 +23,21 @@ export async function POST(request: Request, context: any) {
     }
 
     const result = await prisma.$transaction(async (tx) => {
+      const user = await tx.appUser.findUnique({
+        where: { id: userId },
+      });
+
+      if (!user) throw new Error("User not found");
+
+      if (!allowedRoles.includes(user.role)) {
+        throw new Error("User role is not allowed to check out items");
+      }
+
       const item = await tx.inventoryItem.findUnique({
         where: { id: itemId },
       });
 
-      if (!item) {
-        throw new Error("Item not found");
-      }
+      if (!item) throw new Error("Item not found");
 
       if (item.quantity <= 0) {
         throw new Error("Item is out of stock");
@@ -53,8 +63,6 @@ export async function POST(request: Request, context: any) {
 
     return NextResponse.json(result);
   } catch (error: any) {
-    console.error("POST /api/items/[id]/checkout error:", error);
-
     return NextResponse.json(
       { error: error?.message || String(error) },
       { status: 500 }
