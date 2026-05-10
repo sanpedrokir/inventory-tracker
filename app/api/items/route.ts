@@ -1,55 +1,43 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 
-const prisma = new PrismaClient();
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
-// GET all inventory items
 export async function GET() {
-  try {
-    const items = await prisma.inventoryItem.findMany({
-      orderBy: {
-        id: "desc",
-      },
-    });
+  const { prisma } = await import("@/lib/prisma");
 
-    return NextResponse.json(items);
-  } catch (error: any) {
-    console.error("GET /api/items error:", error);
+  const items = await prisma.InventoryItem.findMany({
+    orderBy: { createdAt: "desc" },
+  });
 
-    return NextResponse.json(
-      {
-        error: error?.message || String(error),
-      },
-      { status: 500 }
-    );
-  }
+  return NextResponse.json(items);
 }
 
-// CREATE inventory item
 export async function POST(request: Request) {
-  try {
-    const body = await request.json();
+  const { prisma } = await import("@/lib/prisma");
 
-    console.log("POST body:", body);
+  const body = await request.json();
 
-    const item = await prisma.inventoryItem.create({
-      data: {
-        name: String(body.name || ""),
-        category: String(body.category || ""),
-        quantity: Number(body.quantity || 0),
-        location: String(body.location || ""),
-      },
-    });
+ try{
+  const item = await prisma.inventoryItem.create({
+    data: {
+      name: String(body.name),
+      category: String(body.category),
+      quantity: Number(body.quantity),
+      location: String(body.location || ""),
+   
+    },
+  });
 
-    return NextResponse.json(item);
-  } catch (error: any) {
-    console.error("POST /api/items error:", error);
+  return NextResponse.json(item);
 
-    return NextResponse.json(
-      {
-        error: error?.message || String(error),
-      },
-      { status: 500 }
-    );
-  }
+} catch (error) {
+  console.error(error);
+
+  return NextResponse.json(
+    { error: String(error) },
+    { status: 500 }
+  );
+}
 }
