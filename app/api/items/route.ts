@@ -1,42 +1,55 @@
 import { NextResponse } from "next/server";
+import { PrismaClient } from "@prisma/client";
 
-export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
+const prisma = new PrismaClient();
 
+// GET all inventory items
 export async function GET() {
-  const { prisma } = await import("@/lib/prisma");
+  try {
+    const items = await prisma.inventoryItem.findMany({
+      orderBy: {
+        id: "desc",
+      },
+    });
 
-  const items = await prisma.InventoryItem.findMany({
-    orderBy: { createdAt: "desc" },
-  });
+    return NextResponse.json(items);
+  } catch (error: any) {
+    console.error("GET /api/items error:", error);
 
-  return NextResponse.json(items);
+    return NextResponse.json(
+      {
+        error: error?.message || String(error),
+      },
+      { status: 500 }
+    );
+  }
 }
 
+// CREATE inventory item
 export async function POST(request: Request) {
-  const { prisma } = await import("@/lib/prisma");
+  try {
+    const body = await request.json();
 
-  const body = await request.json();
+    console.log("POST body:", body);
 
- try{
-  const item = await prisma.inventoryItem.create({
-    data: {
-      name: String(body.name),
-      category: String(body.category),
-      quantity: Number(body.quantity),
-      location: String(body.location || ""),
-   
-    },
-  });
+    const item = await prisma.inventoryItem.create({
+      data: {
+        name: String(body.name || ""),
+        category: String(body.category || ""),
+        quantity: Number(body.quantity || 0),
+        location: String(body.location || ""),
+      },
+    });
 
-  return NextResponse.json(item);
+    return NextResponse.json(item);
+  } catch (error: any) {
+    console.error("POST /api/items error:", error);
 
-} catch (error) {
-  console.error(error);
-
-  return NextResponse.json(
-    { error: String(error) },
-    { status: 500 }
-  );
-}
+    return NextResponse.json(
+      {
+        error: error?.message || String(error),
+      },
+      { status: 500 }
+    );
+  }
 }
