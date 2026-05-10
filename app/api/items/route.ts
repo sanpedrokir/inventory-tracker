@@ -23,8 +23,8 @@ export async function POST(request: Request) {
   const item = await prisma.inventoryItem.create({
     data: {
       name: String(body.name),
-      category: String(body.category),
-      quantity: Number(body.quantity),
+      category: String(body.category || ""),
+      quantity: Number(body.quantity || 0),
       location: String(body.location || ""),
    
     },
